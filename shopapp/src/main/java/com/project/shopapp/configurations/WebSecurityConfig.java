@@ -61,6 +61,9 @@ public class WebSecurityConfig {
                                     String.format("%s/categories/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(GET,
+                                    String.format("%s/products", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
                                     String.format("%s/products**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
@@ -100,7 +103,6 @@ public class WebSecurityConfig {
                             .requestMatchers(DELETE,
                                     String.format("%s/order_details/**", apiPrefix)).hasRole(Role.ADMIN)
 
-
                             .requestMatchers(GET,
                                     String.format("%s/shops", apiPrefix)).permitAll() // Ai cũng xem được danh sách shop
                             .requestMatchers(GET,
@@ -111,6 +113,9 @@ public class WebSecurityConfig {
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/products/shop/**", apiPrefix)).permitAll()
+
                             .anyRequest().authenticated();
                     //.anyRequest().permitAll();
 

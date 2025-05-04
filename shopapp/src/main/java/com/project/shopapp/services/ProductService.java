@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -141,4 +142,15 @@ public class ProductService implements IProductService{
         }
         return productImageRepository.save(newProductImage);
     }
+
+    @Override
+    public List<ProductResponse> getProductsByShopId(Long shopId) {
+        List<Product> products = productRepository.findByShopId(shopId);
+        return products.stream()
+                .map(ProductResponse::fromProduct)
+                .toList();
+    }
+
+
+
 }

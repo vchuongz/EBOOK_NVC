@@ -167,4 +167,12 @@ public class ProductController {
         return ResponseEntity.ok("delete product successfully");
     }
 
+
+    @GetMapping("/shop/{shopId}")
+    public ResponseEntity<List<ProductResponse>> getProductsByShopId(@PathVariable Long shopId) {
+        List<ProductResponse> products = productService.getProductsByShopId(shopId);
+        return ResponseEntity.ok(products);
+    }
+
+
 }

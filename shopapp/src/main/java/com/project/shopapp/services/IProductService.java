@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface IProductService {
     Product createProduct(ProductDTO productDTO) throws DataNotFoundException;
@@ -27,5 +29,7 @@ public interface IProductService {
     ProductImage createProductImage(
             Long ProductId,
             ProductImageDTO productImageDTO) throws Exception;
+
+    List<ProductResponse> getProductsByShopId(Long shopId);
 
 }
