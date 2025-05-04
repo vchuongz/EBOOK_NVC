@@ -142,11 +142,29 @@ public class ProductController {
         }
 
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestBody ProductDTO productDTO,
+            BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                List<String> errorMessages = result.getFieldErrors()
+                        .stream()
+                        .map(fieldError -> fieldError.getDefaultMessage())
+                        .toList();
+                return ResponseEntity.badRequest().body(errorMessages);
+            }
+            Product updatedProduct = productService.updateProduct(id, productDTO);
+            return ResponseEntity.ok(ProductResponse.fromProduct(updatedProduct));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         return ResponseEntity.ok("delete product successfully");
     }
-
 
 }

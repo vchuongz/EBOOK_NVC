@@ -1,6 +1,8 @@
 package com.project.shopapp.controller;
 
+import com.project.shopapp.exception.DataNotFoundException;
 import com.project.shopapp.models.User;
+import com.project.shopapp.repository.UserRepository;
 import com.project.shopapp.responses.LoginResponse;
 import com.project.shopapp.responses.RegisterResponse;
 import com.project.shopapp.services.IUserService;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
+    private final UserRepository userRepository;
+
     private final LocalizationUtils localizationUtils;
 
     @PostMapping("/register")
@@ -79,9 +83,15 @@ public class UserController {
                     userLoginDTO.getPassword(),
                     userLoginDTO.getRoleId()
             );
+//            Long roleId = userLoginDTO.getRoleId();
+            User userId = userRepository.findByPhoneNumber(userLoginDTO.getPhoneNumber())
+                    .orElseThrow(() -> new DataNotFoundException("User not found"));
+
+
             // Trả về token trong response
             return ResponseEntity.ok(LoginResponse.builder()
                     .message(localizationUtils.getLocalizedMessage(MessageKeys.LOGIN_SUCCESSFULLY))
+                    .role(userId.getRole().getId())
                     .token(token)
                     .build());
         } catch (Exception e) {
