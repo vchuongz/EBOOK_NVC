@@ -28,6 +28,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/products")
@@ -130,6 +131,34 @@ public class ProductController {
                         .build());
     }
 
+
+//    @GetMapping("") // http://localhost:9090/api/v1/products?page=1&limit=10
+//    public ResponseEntity<?> getProducts(
+//            @RequestParam("page") int page,
+//            @RequestParam("limit") int limit
+//    ) {
+//        PageRequest pageRequest = PageRequest.of(
+//                page, limit,
+//                Sort.by("createAt").descending()
+//        );
+//
+//        Page<ProductResponse> productPage = productService.getAllProduct(pageRequest);
+//        int totalPages = productPage.getTotalPages();
+//
+//        List<ProductResponse> products = productPage.getContent()
+//                .stream()
+//                .map(ProductResponse::fromProduct)
+//                .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok(
+//                ProductListResponse.builder()
+//                        .product(products)
+//                        .totalPage(totalPages)
+//                        .build()
+//        );
+//    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(
             @PathVariable("id") Long productId
@@ -140,7 +169,6 @@ public class ProductController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(
@@ -164,6 +192,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
         return ResponseEntity.ok("delete product successfully");
     }
 

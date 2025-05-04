@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductDTO {
 
+    private int id;
+
     @NotBlank(message = "Product name is required")
     private String name;
 

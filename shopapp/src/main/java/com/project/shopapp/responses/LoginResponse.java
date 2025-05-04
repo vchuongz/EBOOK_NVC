@@ -16,4 +16,7 @@ public class LoginResponse {
     private String token;
 
     private Long role;
+
+    @JsonProperty("user_id")
+    private Long userId;
 }

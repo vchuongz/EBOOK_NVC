@@ -64,6 +64,7 @@ public class ProductService implements IProductService{
         product -> {
             ProductResponse productResponses=
                     ProductResponse.builder()
+                            .id(product.getId())
                             .name(product.getName())
                             .price(product.getPrice())
                             .thumbnail(product.getThumbnail())

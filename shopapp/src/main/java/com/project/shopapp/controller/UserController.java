@@ -92,6 +92,7 @@ public class UserController {
             return ResponseEntity.ok(LoginResponse.builder()
                     .message(localizationUtils.getLocalizedMessage(MessageKeys.LOGIN_SUCCESSFULLY))
                     .role(userId.getRole().getId())
+                    .userId(userId.getId())
                     .token(token)
                     .build());
         } catch (Exception e) {
