@@ -80,8 +80,8 @@ public class UserController {
         try {
             String token = userService.login(
                     userLoginDTO.getPhoneNumber(),
-                    userLoginDTO.getPassword(),
-                    userLoginDTO.getRoleId()
+                    userLoginDTO.getPassword()
+//                    , userLoginDTO.getRoleId()
             );
 //            Long roleId = userLoginDTO.getRoleId();
             User userId = userRepository.findByPhoneNumber(userLoginDTO.getPhoneNumber())
