@@ -73,13 +73,13 @@ public class WebSecurityConfig {
                                     String.format("%s/products/images/*", apiPrefix)).permitAll()
 
                             .requestMatchers(POST,
-                                    String.format("%s/products**", apiPrefix)).hasAnyRole(Role.ADMIN)
+                                    String.format("%s/products**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
 
                             .requestMatchers(PUT,
-                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
 
                             .requestMatchers(DELETE,
-                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
                             .requestMatchers(GET,
                                     String.format("%s/products/shop/**", apiPrefix)).permitAll()
 

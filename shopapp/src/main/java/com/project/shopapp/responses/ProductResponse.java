@@ -2,6 +2,7 @@ package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.shopapp.models.Product;
+import com.project.shopapp.models.ProductImage;
 import lombok.*;
 
 
@@ -31,6 +32,9 @@ public class ProductResponse extends BaseResponse {
 
     @JsonProperty("is_downloadable")
     private Boolean isDownloadable;
+
+    @JsonProperty("product_image")
+    private ProductImage productImage;
 
     public static ProductResponse fromProduct(Product product) {
         ProductResponse productResponse = ProductResponse.builder()

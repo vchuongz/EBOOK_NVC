@@ -19,6 +19,6 @@ public class Role {
     private String name;
 
     public static String ADMIN = "ADMIN";
-    public static String Owner = "OWNER";
+    public static String OWNER = "OWNER";
     public static String USER = "USER";
 }
