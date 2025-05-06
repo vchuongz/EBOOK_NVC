@@ -1,6 +1,7 @@
 package com.project.shopapp.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.shopapp.models.OrderStatus;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -22,6 +23,8 @@ public class OrderDTO {
     private String phoneNumber;
 
     private String notes;
+
+    private OrderStatus status;
 
     @JsonProperty("total_money")
     @Min(value = 0, message = "Total money must be >= 0")

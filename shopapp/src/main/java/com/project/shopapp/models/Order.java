@@ -2,10 +2,7 @@ package com.project.shopapp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "orders")
@@ -32,7 +29,7 @@ public class Order {
     private String notes;
 
     @Column(name = "order_date")
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
