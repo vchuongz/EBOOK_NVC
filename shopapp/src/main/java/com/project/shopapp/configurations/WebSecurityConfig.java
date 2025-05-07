@@ -97,6 +97,18 @@ public class WebSecurityConfig {
                             .requestMatchers(DELETE,
                                     String.format("%s/orders/**", apiPrefix)).hasRole(Role.ADMIN)
 
+
+
+                            .requestMatchers(GET,
+                                    String.format("%s/downloads/user/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/downloads", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/downloads/product/**", apiPrefix)).permitAll()
+
+
                             .requestMatchers(POST,
                                     String.format("%s/order_details", apiPrefix)).permitAll()
 
