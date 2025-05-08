@@ -49,6 +49,19 @@ public class WebSecurityConfig {
                                     String.format("%s/roles**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
+                                    String.format("%s/payments/create-payment/**", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/payments/create-payment", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/payments/vnpay-return", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/payments/vnpay-return/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/payments/momo/notify", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
                                     String.format("%s/categories**", apiPrefix)).permitAll()
 
                             .requestMatchers(POST,
@@ -134,6 +147,8 @@ public class WebSecurityConfig {
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
+
+
 
                             .anyRequest().authenticated();
                     //.anyRequest().permitAll();

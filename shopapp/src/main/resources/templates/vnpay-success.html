@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Giao dịch thành công - VNPAY</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #f3f4f6;
+        }
+
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          padding: 20px;
+        }
+
+        .success-box {
+          position: relative;
+          background-color: #fff;
+          padding: 30px 40px;
+          border-radius: 16px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+          text-align: center;
+          max-width: 450px;
+          width: 100%;
+        }
+
+        .logo-top-right {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+
+        .logo-top-right img {
+          height: 40px;
+        }
+
+        .checkmark img {
+          height: 64px;
+          margin-bottom: 20px;
+        }
+
+        .success-box h1 {
+          color: #28a745;
+          margin-bottom: 12px;
+          font-size: 24px;
+        }
+
+        .success-box p {
+          color: #555;
+          margin: 5px 0;
+          font-size: 15px;
+        }
+
+        .info {
+          text-align: left;
+          margin-top: 20px;
+          background: #f9f9f9;
+          padding: 15px 20px;
+          border-radius: 8px;
+          font-size: 14px;
+        }
+
+        .info p {
+          margin: 8px 0;
+        }
+
+        .info strong {
+          color: #222;
+        }
+
+        .back-btn {
+          margin-top: 25px;
+          display: inline-block;
+          padding: 10px 22px;
+          background-color: #0074d9;
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+          border-radius: 5px;
+          transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+          background-color: #005fa3;
+        }
+
+        @media screen and (max-width: 500px) {
+          .success-box {
+            padding: 25px 20px;
+          }
+
+          .info {
+            font-size: 13px;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="success-box">
+        <div class="logo-top-right">
+            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png" alt="VNPAY logo">
+        </div>
+        <div class="checkmark">
+            <img src="https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png" alt="checkmark">
+        </div>
+        <h1>Giao dịch thành công</h1>
+        <p>Cảm ơn bạn đã sử dụng dịch vụ VNPAY.</p>
+        <div class="info">
+            <p><strong>Mã giao dịch:</strong> <span th:text="${transactionId}">VNP12345678</span></p>
+            <p><strong>Số tiền:</strong> <span th:text="${amount}">1.000.000 VND</span></p>
+            <p><strong>Thời gian:</strong> <span th:text="${paymentTime}">18/04/2025 - 14:32</span></p>
+        </div>
+        <a href="/" class="back-btn">Quay về trang chủ</a>
+    </div>
+</div>
+</body>
+</html>

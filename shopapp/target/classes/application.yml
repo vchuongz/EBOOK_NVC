@@ -30,3 +30,29 @@ api:
 jwt:
   expiration: 2592000 #30 days = 30 * 24 * 60 * 60
   secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
+
+
+
+momo:
+  partner-code: MOMO
+  access-key: F8BBA842ECF85
+  secret-key: K951B6PE1waDMi640xX08PD3vg6EkVlz
+  endpoint-url: https://test-payment.momo.vn/v2/gateway/api/create
+  return-url: https://random-id.ngrok.io/api/v1/payments/momo/success
+  notify-url: https://random-id.ngrok.io/api/v1/payments/momo/notify
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+vnpay:
+    tmnCode: 0D7U0C4Z
+    hashSecret: 8ZF37DFFNM6F4M756V6PA2MW4UO75DM4
+    payUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    returnUrl: https://710c-171-251-1-165.ngrok-free.app/api/v1/payments/vnpay-return
+# VN pay
+#  vnpay.tmnCode=0D7U0C4Z
+#  vnpay.hashSecret=8ZF37DFFNM6F4M756V6PA2MW4UO75DM4
+#  vnpay.payUrl=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+#  vnpay.returnUrl=https://e753-113-185-105-221.ngrok-free.app/api/payment/vnpay-return
+#  sandbox.vnpayment.vn

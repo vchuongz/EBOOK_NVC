@@ -42,6 +42,7 @@ public class ProductController {
                                            BindingResult result
                                            ){
         try {
+
             if(result.hasErrors()){
                 List<String> errorMessage = result.getFieldErrors()
                         .stream().map(fieldError -> fieldError.getDefaultMessage()).toList();
