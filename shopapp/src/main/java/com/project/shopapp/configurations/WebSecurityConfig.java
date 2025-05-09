@@ -49,6 +49,9 @@ public class WebSecurityConfig {
                                     String.format("%s/roles**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
+                                    String.format("%s/users", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
                                     String.format("%s/payments/create-payment/**", apiPrefix)).permitAll()
                             .requestMatchers(GET,
                                     String.format("%s/payments/create-payment", apiPrefix)).permitAll()

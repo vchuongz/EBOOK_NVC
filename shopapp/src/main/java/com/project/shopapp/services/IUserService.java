@@ -4,6 +4,8 @@ import com.project.shopapp.dtos.UserDTO;
 import com.project.shopapp.models.User;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 public interface IUserService {
     User createUser(UserDTO userDTO) throws Exception;
 
@@ -14,5 +16,5 @@ public interface IUserService {
             String password
 //            , Long roleId
     ) throws Exception;
-
+    List<User> getAllUsers();
 }

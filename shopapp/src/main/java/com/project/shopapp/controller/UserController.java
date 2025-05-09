@@ -5,6 +5,7 @@ import com.project.shopapp.models.User;
 import com.project.shopapp.repository.UserRepository;
 import com.project.shopapp.responses.LoginResponse;
 import com.project.shopapp.responses.RegisterResponse;
+import com.project.shopapp.responses.UserResponse;
 import com.project.shopapp.services.IUserService;
 import com.project.shopapp.components.LocalizationUtils;
 import com.project.shopapp.utils.MessageKeys;
@@ -102,5 +103,23 @@ public class UserController {
                             .build()
             );
         }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserResponse> resp = users.stream()
+                .map(u -> new UserResponse(
+                        u.getId(),
+                        u.getFullName(),
+                        u.getPhoneNumber(),
+                        u.getEmail(),
+                        u.getAddress(),
+                        u.getDateOfBirth(),
+                        u.isActive(),
+                        u.getRole().getId()
+                ))
+                .toList();
+        return ResponseEntity.ok(resp);
     }
 }
