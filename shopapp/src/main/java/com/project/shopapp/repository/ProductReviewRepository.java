@@ -1,4 +1,5 @@
 package com.project.shopapp.repository;
+
 import com.project.shopapp.models.ProductReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 

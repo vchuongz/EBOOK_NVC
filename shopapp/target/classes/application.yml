@@ -50,6 +50,11 @@ vnpay:
     hashSecret: 8ZF37DFFNM6F4M756V6PA2MW4UO75DM4
     payUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
     returnUrl: https://710c-171-251-1-165.ngrok-free.app/api/v1/payments/vnpay-return
+
+cloudinary:
+  cloud_name: diauyc0ws
+  api_key: 118664976699364
+  api_secret: G701wrbBkdMtBvFTT6e5xo7lglk
 # VN pay
 #  vnpay.tmnCode=0D7U0C4Z
 #  vnpay.hashSecret=8ZF37DFFNM6F4M756V6PA2MW4UO75DM4

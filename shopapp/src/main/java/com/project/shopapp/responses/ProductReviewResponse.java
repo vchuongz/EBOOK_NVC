@@ -1,4 +1,3 @@
-
 package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -152,6 +153,12 @@ public class ProductService implements IProductService{
                 .toList();
     }
 
-
+    @Override
+    public List<ProductResponse> searchProductsByName(String keyword) {
+        List<Product> products = productRepository.searchByName(keyword);
+        return products.stream()
+                .map(ProductResponse::fromProduct)
+                .collect(Collectors.toList());
+    }
 
 }

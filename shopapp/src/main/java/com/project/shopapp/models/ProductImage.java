@@ -3,6 +3,8 @@ package com.project.shopapp.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name="product_images")
@@ -24,4 +26,8 @@ public class ProductImage {
 
     @Column(name="image_url" , length = 555)
     private  String imageUrl;
+
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<ProductImage> productImages;
+
 }

@@ -8,10 +8,12 @@ import com.project.shopapp.models.Product;
 import com.project.shopapp.repository.OrderDetailRepository;
 import com.project.shopapp.repository.OrderRepository;
 import com.project.shopapp.repository.ProductRepository;
+import com.project.shopapp.responses.ProductSalesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -74,4 +76,22 @@ public class OrderDetailService implements IOrderDetailService{
     public List<OrderDetail> findByOrderId(Long orderId) {
         return orderDetailRepository.findByOrderId(orderId);
     }
+
+    @Override
+    public List<ProductSalesResponse> getTopSellingProducts(int limit) {
+        List<Object[]> results = orderDetailRepository.findTopSellingProducts(limit);
+
+        return results.stream()
+                .map(result -> {
+                    Product product = (Product) result[0];
+                    Long totalSold = (Long) result[1];
+                    return ProductSalesResponse.builder()
+                            .productId(product.getId())
+                            .productName(product.getName())
+                            .totalSold(totalSold)
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
+
 }

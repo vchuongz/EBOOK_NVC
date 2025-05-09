@@ -5,6 +5,9 @@ import com.project.shopapp.models.Product;
 import com.project.shopapp.models.ProductImage;
 import lombok.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Setter
 @Getter
@@ -33,8 +36,8 @@ public class ProductResponse extends BaseResponse {
     @JsonProperty("is_downloadable")
     private Boolean isDownloadable;
 
-    @JsonProperty("product_image")
-    private ProductImage productImage;
+    @JsonProperty("product_image_urls")
+    private List<String> productImageUrls;
 
     public static ProductResponse fromProduct(Product product) {
         ProductResponse productResponse = ProductResponse.builder()
@@ -51,6 +54,14 @@ public class ProductResponse extends BaseResponse {
                 .build();
         productResponse.setCreateAt(product.getCreateAt());
         productResponse.setUpdateAt(product.getUpdateAt());
+
+        if (product.getProductImages() != null) {
+            List<String> imageUrls = product.getProductImages()
+                    .stream()
+                    .map(ProductImage::getImageUrl)
+                    .collect(Collectors.toList());
+            productResponse.setProductImageUrls(imageUrls);
+        }
         return productResponse;
     }
 }

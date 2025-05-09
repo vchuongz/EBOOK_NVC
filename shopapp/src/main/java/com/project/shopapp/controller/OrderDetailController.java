@@ -3,6 +3,7 @@ package com.project.shopapp.controller;
 import com.project.shopapp.dtos.OrderDetailDTO;
 import com.project.shopapp.models.OrderDetail;
 import com.project.shopapp.responses.OrderDetailResponse;
+import com.project.shopapp.responses.ProductSalesResponse;
 import com.project.shopapp.services.IOrderDetailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -61,4 +62,12 @@ public class OrderDetailController {
         orderDetailService.deleteById(id);
         return ResponseEntity.ok("Order detail deleted successfully");
     }
+
+    @GetMapping("/top_selling")
+    public ResponseEntity<List<ProductSalesResponse>> getTopSellingProducts(
+            @RequestParam(name = "limit", defaultValue = "10") int limit) {
+        List<ProductSalesResponse> topProducts = orderDetailService.getTopSellingProducts(limit);
+        return ResponseEntity.ok(topProducts);
+    }
+
 }

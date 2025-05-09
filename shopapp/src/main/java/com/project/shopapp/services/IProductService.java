@@ -32,4 +32,6 @@ public interface IProductService {
 
     List<ProductResponse> getProductsByShopId(Long shopId);
 
+    List<ProductResponse> searchProductsByName(String keyword);
+
 }

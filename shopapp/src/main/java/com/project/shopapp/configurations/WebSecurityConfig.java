@@ -83,6 +83,9 @@ public class WebSecurityConfig {
                                     String.format("%s/products**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
+                                    String.format("%s/products/search**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
                                     String.format("%s/products/**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
@@ -96,18 +99,6 @@ public class WebSecurityConfig {
 
                             .requestMatchers(DELETE,
                                     String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
-
-                            .requestMatchers(POST,
-                                    String.format("%s/reviews", apiPrefix)).permitAll()
-
-                            .requestMatchers(GET,
-                                    String.format("%s/reviews/product/**", apiPrefix)).permitAll()
-
-                            .requestMatchers(GET, String.format("%s/reviews/user/**", apiPrefix)).permitAll()
-
-                            .requestMatchers(DELETE,
-                                    String.format("%s/reviews/**", apiPrefix)).permitAll()
-
 
                             .requestMatchers(GET,
                                     String.format("%s/products/shop/**", apiPrefix)).permitAll()
@@ -147,6 +138,9 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/order_details/**", apiPrefix)).permitAll()
 
+                            .requestMatchers(GET,
+                                    String.format("%s/order_details/top_selling**", apiPrefix)).permitAll()
+
                             .requestMatchers(PUT,
                                     String.format("%s/order_details/**", apiPrefix)).hasRole(Role.ADMIN)
 
@@ -163,6 +157,24 @@ public class WebSecurityConfig {
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
+
+
+
+
+                            .requestMatchers(POST,
+                                    String.format("%s/review**", apiPrefix)).permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/review**", apiPrefix)).permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/review/**", apiPrefix)).permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/review", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/review/product/**", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/review/user/**", apiPrefix)).hasAnyRole(Role.OWNER, Role.ADMIN)
+                            .requestMatchers(DELETE,
+                                    String.format("%s/review/**", apiPrefix)).hasRole(Role.ADMIN)
 
 
 
