@@ -177,13 +177,13 @@ public class WebSecurityConfig {
 //                            .requestMatchers(POST,
 //                                    String.format("%s/review/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
-                                    String.format("%s/reviews/create", apiPrefix)).permitAll()
+                                    String.format("%s/reviews", apiPrefix)).permitAll()
                             .requestMatchers(GET,
-                                    String.format("%s/review/product/**", apiPrefix)).permitAll()
+                                    String.format("%s/reviews/product/**", apiPrefix)).permitAll()
                             .requestMatchers(GET,
-                                    String.format("%s/review/user/**", apiPrefix)).hasAnyRole(Role.OWNER, Role.ADMIN)
+                                    String.format("%s/reviews/user/**", apiPrefix)).hasAnyRole(Role.OWNER, Role.ADMIN)
                             .requestMatchers(DELETE,
-                                    String.format("%s/review/**", apiPrefix)).hasRole(Role.ADMIN)
+                                    String.format("%s/reviews/**", apiPrefix)).hasRole(Role.ADMIN)
 
 
 

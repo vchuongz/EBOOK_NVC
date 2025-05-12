@@ -19,18 +19,18 @@ public class ProductReviewResponse {
 
     private int rating;
     private String comment;
+    private String username;
+    private String productName;
 
-    @JsonProperty("created_at")
-    private String createdAt;
-
-    public static ProductReviewResponse from(ProductReview review) {
+    public static ProductReviewResponse fromReview(ProductReview review) {
         return ProductReviewResponse.builder()
                 .id(review.getId())
                 .userId(review.getUser().getId())
+                .username(review.getUser().getFullName())
                 .productId(review.getProduct().getId())
+                .productName(review.getProduct().getName())
                 .rating(review.getRating())
                 .comment(review.getComment())
-                .createdAt(review.getCreatedAt().toString())
                 .build();
     }
 }

@@ -17,17 +17,17 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductReviewService implements IProductReviewService {
-    private final ProductReviewRepository reviewRepository;
+    private final ProductReviewRepository productReviewRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
     @Override
     public ProductReviewResponse createReview(ProductReviewDTO dto) throws Exception {
         User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new Exception("User not found"));
 
         Product product = productRepository.findById(dto.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new Exception("Product not found"));
 
         ProductReview review = ProductReview.builder()
                 .user(user)
@@ -36,25 +36,28 @@ public class ProductReviewService implements IProductReviewService {
                 .comment(dto.getComment())
                 .build();
 
-        return ProductReviewResponse.from(reviewRepository.save(review));
+        productReviewRepository.save(review);
+        return ProductReviewResponse.fromReview(review);
     }
 
     @Override
-    public List<ProductReviewResponse> getReviewsByProduct(Long productId) {
-        return reviewRepository.findByProductId(productId).stream()
-                .map(ProductReviewResponse::from)
+    public List<ProductReviewResponse> getReviewsByProductId(Long productId) {
+        return productReviewRepository.findByProductId(productId)
+                .stream()
+                .map(ProductReviewResponse::fromReview)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductReviewResponse> getReviewsByUser(Long userId) {
-        return reviewRepository.findByUserId(userId).stream()
-                .map(ProductReviewResponse::from)
+    public List<ProductReviewResponse> getReviewsByUserId(Long userId) {
+        return productReviewRepository.findByUserId(userId)
+                .stream()
+                .map(ProductReviewResponse::fromReview)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void deleteReview(Long id) {
-        reviewRepository.deleteById(id);
+        productReviewRepository.deleteById(id);
     }
 }

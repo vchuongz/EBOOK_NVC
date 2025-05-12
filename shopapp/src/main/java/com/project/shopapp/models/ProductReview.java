@@ -24,9 +24,16 @@ public class ProductReview {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private int rating;
+    private int rating; // Đánh giá từ 1 đến 5
+
+    @Column(columnDefinition = "TEXT")
     private String comment;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

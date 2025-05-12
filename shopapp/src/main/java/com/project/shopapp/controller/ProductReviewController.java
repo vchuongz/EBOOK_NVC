@@ -1,4 +1,3 @@
-
 package com.project.shopapp.controller;
 
 import com.project.shopapp.dtos.ProductReviewDTO;
@@ -17,24 +16,27 @@ import java.util.List;
 public class ProductReviewController {
     private final IProductReviewService reviewService;
 
-    @PostMapping("/create")
-    public ResponseEntity<ProductReviewResponse> createReview(@Valid @RequestBody ProductReviewDTO dto) throws Exception {
-        System.out.println("Creating review: " + dto);
-        return ResponseEntity.ok(reviewService.createReview(dto));
+    @PostMapping("")
+    public ResponseEntity<?> createReview(@Valid @RequestBody ProductReviewDTO dto) {
+        try {
+            return ResponseEntity.ok(reviewService.createReview(dto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<List<ProductReviewResponse>> getByProduct(@PathVariable Long productId) {
-        return ResponseEntity.ok(reviewService.getReviewsByProduct(productId));
+    public ResponseEntity<List<ProductReviewResponse>> getReviewsByProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(reviewService.getReviewsByProductId(productId));
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ProductReviewResponse>> getByUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(reviewService.getReviewsByUser(userId));
+    public ResponseEntity<List<ProductReviewResponse>> getReviewsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(reviewService.getReviewsByUserId(userId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
         return ResponseEntity.ok("Review deleted successfully");
     }
