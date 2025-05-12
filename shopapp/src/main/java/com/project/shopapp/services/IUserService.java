@@ -17,4 +17,6 @@ public interface IUserService {
 //            , Long roleId
     ) throws Exception;
     List<User> getAllUsers();
+    User getUserById(Long id) throws Exception;
+
 }

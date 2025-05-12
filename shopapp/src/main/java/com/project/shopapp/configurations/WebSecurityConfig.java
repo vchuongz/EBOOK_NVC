@@ -9,11 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -42,6 +45,8 @@ public class WebSecurityConfig {
                             .requestMatchers(
                                     String.format("%s/users/register", apiPrefix),
                                     String.format("%s/users/login", apiPrefix)
+
+
                             )
                             .permitAll()
 
@@ -91,8 +96,12 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/products/images/*", apiPrefix)).permitAll()
 
+//                            .requestMatchers(POST,
+//                                    String.format("%s/products**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
+
                             .requestMatchers(POST,
-                                    String.format("%s/products**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
+                                    String.format("%s/products", apiPrefix)).hasRole(Role.ADMIN)
+
 
                             .requestMatchers(PUT,
                                     String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
@@ -106,10 +115,10 @@ public class WebSecurityConfig {
 
 
                             .requestMatchers(GET,
-                                    String.format("%s/orders/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
+                                    String.format("%s/orders/**", apiPrefix)).permitAll()
 
                             .requestMatchers(POST,
-                                    String.format("%s/orders", apiPrefix)).hasAnyRole(Role.ADMIN, Role.OWNER)
+                                    String.format("%s/orders", apiPrefix)).permitAll()
 
                             .requestMatchers(PUT,
                                     String.format("%s/orders/**", apiPrefix)).hasRole(Role.ADMIN)
@@ -161,12 +170,12 @@ public class WebSecurityConfig {
 
 
 
-                            .requestMatchers(POST,
-                                    String.format("%s/review**", apiPrefix)).permitAll()
-                            .requestMatchers(POST,
-                                    String.format("%s/review**", apiPrefix)).permitAll()
-                            .requestMatchers(POST,
-                                    String.format("%s/review/**", apiPrefix)).permitAll()
+//                            .requestMatchers(POST,
+//                                    String.format("%s/review**", apiPrefix)).permitAll()
+//                            .requestMatchers(POST,
+//                                    String.format("%s/review**", apiPrefix)).permitAll()
+//                            .requestMatchers(POST,
+//                                    String.format("%s/review/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/review", apiPrefix)).permitAll()
                             .requestMatchers(GET,
@@ -179,24 +188,59 @@ public class WebSecurityConfig {
 
 
                             .anyRequest().authenticated();
-                    //.anyRequest().permitAll();
+//                            .anyRequest().permitAll();
 
                 })
-                .csrf(AbstractHttpConfigurer::disable);
-        http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-            @Override
-            public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-                CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(List.of("*"));
-                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-                configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-                configuration.setExposedHeaders(List.of("x-auth-token"));
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                source.registerCorsConfiguration("/**", configuration);
-                httpSecurityCorsConfigurer.configurationSource(source);
-            }
-        });
+
+//                .csrf(csrf -> csrf.ignoringRequestMatchers(
+//                        String.format("%s/review/**", apiPrefix) // Vô hiệu hóa CSRF chỉ với Review API
+//                ))
+
+//                .csrf(AbstractHttpConfigurer::disable);
+//                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+//                    @Override
+//                    public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+//                        CorsConfiguration configuration = new CorsConfiguration();
+//                        configuration.setAllowedOrigins(List.of("*"));
+//                        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+//                        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+//                        configuration.setExposedHeaders(List.of("x-auth-token"));
+//                        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//                        source.registerCorsConfiguration("/**", configuration);
+//                        httpSecurityCorsConfigurer.configurationSource(source);
+//                    }
+//                });
+//                return http.build();
+//    }
+
+
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {
+                    CorsConfiguration configuration = new CorsConfiguration();
+                    configuration.setAllowedOrigins(List.of("*"));
+                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                    configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+                    configuration.setExposedHeaders(List.of("x-auth-token"));
+                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                    source.registerCorsConfiguration("/**", configuration);
+                    cors.configurationSource(source);
+                });
 
         return http.build();
+    }
+
+    // Tạo cấu hình firewall riêng
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true);
+        firewall.setAllowBackSlash(true);
+        return firewall;
+    }
+
+    // Gắn firewall vào WebSecurityCustomizer (cách đúng thay vì dùng .firewall() cũ)
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall firewall) {
+        return web -> web.httpFirewall(firewall);
     }
 }

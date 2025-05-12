@@ -54,7 +54,7 @@
 //            return ResponseEntity.badRequest().body(e.getMessage());
 //        }
 //    }
-//
+
 //    @PostMapping(value = "uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 //    public ResponseEntity<?> uploadImages(
 //            @PathVariable("id") Long productId,
@@ -270,10 +270,37 @@ public class ProductController {
     private final IProductService productService;
     private final CloudinaryService cloudinaryService;
 
-    @PostMapping(value = "")
+//    @PostMapping(value = "")
+//    public ResponseEntity<?> createProduct(
+//            @Valid @ModelAttribute ProductDTO productDTO ,
+//            BindingResult result,
+//            @RequestParam(value = "file", required = false) MultipartFile file) {
+//        try {
+//            if(result.hasErrors()){
+//                List<String> errorMessage = result.getFieldErrors()
+//                        .stream().map(fieldError -> fieldError.getDefaultMessage()).toList();
+//                return  ResponseEntity.badRequest().body(errorMessage);
+//            }
+//
+//            // Upload file PDF lên Cloudinary nếu có
+//            if (file != null && !file.isEmpty()) {
+//                String cloudinaryUrl = cloudinaryService.uploadImage(file);
+//                productDTO.setFileUrl(cloudinaryUrl);
+//            }
+//
+//            productService.createProduct(productDTO);
+//            return  ResponseEntity.ok("Product created successfully");
+//        }catch (Exception e){
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+    @PostMapping(value = "")//http://localhost:9090/api/v1/products
+    //neeus thong so truyen vao la mot doi tuong ==> request object , data transfer object
     public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO productDTO ,
-                                           BindingResult result){
+                                           BindingResult result
+    ){
         try {
+
             if(result.hasErrors()){
                 List<String> errorMessage = result.getFieldErrors()
                         .stream().map(fieldError -> fieldError.getDefaultMessage()).toList();
@@ -285,6 +312,7 @@ public class ProductController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @PostMapping(value = "uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadImages(
@@ -319,7 +347,7 @@ public class ProductController {
                     productImages.add(productImage);
                 }
             }
-            return ResponseEntity.ok().body(productImages);
+            return ResponseEntity.ok().body("ok");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

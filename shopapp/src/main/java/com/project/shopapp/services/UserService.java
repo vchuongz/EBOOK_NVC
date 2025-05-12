@@ -113,6 +113,11 @@ public class UserService implements IUserService{
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public User getUserById(Long id) throws Exception {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new Exception("User not found"));
+    }
 }
 
 

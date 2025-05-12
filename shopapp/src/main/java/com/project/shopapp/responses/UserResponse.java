@@ -1,13 +1,16 @@
 package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.project.shopapp.models.User;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserResponse {
     private Long id;
     private String fullname;
@@ -18,4 +21,15 @@ public class UserResponse {
     private Date dateOfBirth;
     private boolean active;
     private Long roleId;
+
+    public static UserResponse fromUser(User user) {
+        return UserResponse.builder()
+                .id(user.getId())
+                .fullname(user.getFullName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .address(user.getAddress())
+                .roleId(user.getRole().getId())
+                .build();
+    }
 }
