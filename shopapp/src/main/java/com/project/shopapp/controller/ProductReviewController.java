@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.prefix}/review")
+@RequestMapping("${api.prefix}/reviews")
 @RequiredArgsConstructor
 public class ProductReviewController {
     private final IProductReviewService reviewService;
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<ProductReviewResponse> createReview(@Valid @RequestBody ProductReviewDTO dto) throws Exception {
         System.out.println("Creating review: " + dto);
         return ResponseEntity.ok(reviewService.createReview(dto));

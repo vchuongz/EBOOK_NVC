@@ -177,7 +177,7 @@ public class WebSecurityConfig {
 //                            .requestMatchers(POST,
 //                                    String.format("%s/review/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
-                                    String.format("%s/review", apiPrefix)).permitAll()
+                                    String.format("%s/reviews/create", apiPrefix)).permitAll()
                             .requestMatchers(GET,
                                     String.format("%s/review/product/**", apiPrefix)).permitAll()
                             .requestMatchers(GET,
@@ -192,55 +192,27 @@ public class WebSecurityConfig {
 
                 })
 
-//                .csrf(csrf -> csrf.ignoringRequestMatchers(
-//                        String.format("%s/review/**", apiPrefix) // Vô hiệu hóa CSRF chỉ với Review API
-//                ))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        String.format("%s/review/**", apiPrefix) // Vô hiệu hóa CSRF chỉ với Review API
+                ))
 
-//                .csrf(AbstractHttpConfigurer::disable);
-//                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-//                    @Override
-//                    public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-//                        CorsConfiguration configuration = new CorsConfiguration();
-//                        configuration.setAllowedOrigins(List.of("*"));
-//                        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-//                        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-//                        configuration.setExposedHeaders(List.of("x-auth-token"));
-//                        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//                        source.registerCorsConfiguration("/**", configuration);
-//                        httpSecurityCorsConfigurer.configurationSource(source);
-//                    }
-//                });
-//                return http.build();
-//    }
-
-
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> {
-                    CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(List.of("*"));
-                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-                    configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-                    configuration.setExposedHeaders(List.of("x-auth-token"));
-                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                    source.registerCorsConfiguration("/**", configuration);
-                    cors.configurationSource(source);
+                .csrf(AbstractHttpConfigurer::disable);
+                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+                    @Override
+                    public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.setAllowedOrigins(List.of("*"));
+                        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+                        configuration.setExposedHeaders(List.of("x-auth-token"));
+                        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                        source.registerCorsConfiguration("/**", configuration);
+                        httpSecurityCorsConfigurer.configurationSource(source);
+                    }
                 });
-
-        return http.build();
+                return http.build();
     }
 
-    // Tạo cấu hình firewall riêng
-    @Bean
-    public HttpFirewall allowUrlEncodedSlashFirewall() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        firewall.setAllowBackSlash(true);
-        return firewall;
-    }
 
-    // Gắn firewall vào WebSecurityCustomizer (cách đúng thay vì dùng .firewall() cũ)
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall firewall) {
-        return web -> web.httpFirewall(firewall);
-    }
+
 }
