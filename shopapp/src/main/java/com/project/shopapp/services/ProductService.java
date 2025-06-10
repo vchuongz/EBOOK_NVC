@@ -45,6 +45,7 @@ public class ProductService implements IProductService{
                 .fileUrl(productDTO.getFileUrl())
                 .fileFormat(productDTO.getFileFormat())
                 .isDownloadable(productDTO.getIsDownloadable())
+                .author(productDTO.getAuthor())
                 .categoriesId(existingCategory)
                 .shop(shop)
                 .build();
@@ -73,6 +74,7 @@ public class ProductService implements IProductService{
                             .fileUrl(product.getFileUrl())
                             .fileFormat(product.getFileFormat())
                             .isDownloadable(product.getIsDownloadable())
+                            .author(product.getAuthor())
                             .categoryId(product.getCategoriesId().getId())
                             .shopId(product.getShop().getId())
                             .build();
@@ -103,6 +105,7 @@ public class ProductService implements IProductService{
             existingProduct.setFileUrl(productDTO.getFileUrl());
             existingProduct.setFileFormat(productDTO.getFileFormat());
             existingProduct.setIsDownloadable(productDTO.getIsDownloadable());
+            existingProduct.setAuthor(productDTO.getAuthor());
 //            existingProduct.setCategoriesId(category);
 //            existingProduct.setShop(shop);
             productRepository.save(existingProduct);

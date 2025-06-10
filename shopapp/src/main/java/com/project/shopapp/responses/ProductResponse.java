@@ -21,6 +21,8 @@ public class ProductResponse extends BaseResponse {
     private String thumbnail;
     private String description;
 
+    private String author;
+
     @JsonProperty("category_id")
     private Long categoryId;
 
@@ -51,6 +53,7 @@ public class ProductResponse extends BaseResponse {
                 .fileUrl(product.getFileUrl())
                 .fileFormat(product.getFileFormat())
                 .isDownloadable(product.getIsDownloadable())
+                .author(product.getAuthor())
                 .build();
         productResponse.setCreateAt(product.getCreateAt());
         productResponse.setUpdateAt(product.getUpdateAt());

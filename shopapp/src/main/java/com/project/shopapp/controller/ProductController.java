@@ -40,6 +40,7 @@ public class ProductController {
             @RequestParam("file_format") String fileFormat,
             @RequestParam("category_id") Long categoryId,
             @RequestParam("shop_id") Long shopId,
+            @RequestParam("author") String author,
             @RequestParam(value = "file", required = false) MultipartFile file) {
         try {
             ProductDTO productDTO = new ProductDTO();
@@ -49,6 +50,7 @@ public class ProductController {
             productDTO.setFileFormat(fileFormat);
             productDTO.setCategoryId(categoryId);
             productDTO.setShopId(shopId);
+            productDTO.setAuthor(author);
 
             Product savedProduct = productService.createProduct(productDTO);
 
