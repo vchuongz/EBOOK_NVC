@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: springboot-shopapp
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgres://neondb_owner:npg_3T7oxhfDauUC@ep-square-fog-a4nspwnd-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+      - key: SPRING_DATASOURCE_USERNAME
+        value: neondb_owner
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: npg_3T7oxhfDauUC
