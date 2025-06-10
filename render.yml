@@ -6,8 +6,4 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://ep-square-fog-a4nspwnd-pooler.us-east-1.aws.neon.tech/neondb?user=neondb_owner&password=npg_3T7oxhfDauUC&sslmode=require
-      - key: SPRING_DATASOURCE_USERNAME
-        value: neondb_owner
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: npg_3T7oxhfDauUC
+        value: jdbc:postgresql://ep-square-fog-a4nspwnd-pooler.us-east-1.aws.neon.tech/ebook?sslmode=require
