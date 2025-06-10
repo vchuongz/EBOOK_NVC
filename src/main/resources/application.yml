@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:postgres://neondb_owner:npg_3T7oxhfDauUC@ep-square-fog-a4nspwnd-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+    url: jdbc:postgresql://neondb_owner:npg_3T7oxhfDauUC@ep-square-fog-a4nspwnd-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
     username: neondb_owner
     password: npg_3T7oxhfDauUC
     driver-class-name: org.postgresql.Driver
