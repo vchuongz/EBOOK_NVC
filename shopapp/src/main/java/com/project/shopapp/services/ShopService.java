@@ -41,6 +41,12 @@ public class ShopService implements IShopService {
     }
 
     @Override
+    public Shop getShopByUserId(Long userId) {
+        return shopRepository.findByUserId(userId);  // Tìm shop theo userId
+    }
+
+
+    @Override
     public Shop updateShop(Long id, ShopDTO shopDTO) {
         Shop shop = getShopById(id);
         shop.setName(shopDTO.getName());

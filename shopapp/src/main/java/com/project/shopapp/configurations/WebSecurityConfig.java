@@ -166,6 +166,9 @@ public class WebSecurityConfig {
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/shops/**", apiPrefix)).permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/shops/user/**", apiPrefix)).permitAll() // Cho phép truy cập shop theo userId
+
 
 
 

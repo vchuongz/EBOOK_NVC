@@ -83,4 +83,15 @@ public class ShopController {
         shopService.deleteShop(id);
         return ResponseEntity.ok(localizationUtils.getLocalizedMessage(MessageKeys.DELETE_SHOP_SUCCESSFULLY));
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ShopResponse> getShopByUserId(@PathVariable Long userId) {
+        Shop shop = shopService.getShopByUserId(userId);
+        if (shop == null) {
+            return ResponseEntity.notFound().build();
+        }
+        ShopResponse shopResponse = ShopResponse.fromShop(shop);
+        return ResponseEntity.ok(shopResponse);
+    }
+
 }
